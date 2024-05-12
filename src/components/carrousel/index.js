@@ -2,20 +2,24 @@ import React from "react";
 import {
   View,
   Image,
+  ScrollView,
+  FlatList
 } from "react-native";
-import { ScrollView } from "react-native-web";
 import { movies } from "../../mocks/movies";
 import { styles } from "./styles";
-import Movie from "../movie";
+import Movie from "../movie/index.js";
 
-const Carrousel = () => {
+const Carrousel = ({ category }) => {
+
+  const renderItem = ({ item }) => {
+    if(item.category == category.category)
+     return ( <Movie movie={item}/> )
+    return (<></>);
+  }
+
   return (
     <View style={styles.scroll}>
-        <ScrollView horizontal>
-            {movies.map((movie) => (
-              <Movie movie={movie}/>
-            ))}
-        </ScrollView>
+      <FlatList data={movies} renderItem={renderItem} horizontal/>
     </View>
   );
 };

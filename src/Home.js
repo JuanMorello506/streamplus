@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import Carrousel from "./src/components/carrousel";
-
+import { View, StyleSheet, Text, FlatList, StatusBar, SafeAreaView, ScrollView } from "react-native";
+import Carrousel from "./components/carrousel/index.js";
+import SearchBar from "./components/searchBar/index.js";
+import { categories } from "./mocks/categories.js";
 
 //ESTE ES EL HOME DE LA APLICACION
 //SI SE QUIERE CAMBIAR EL CONTENIDO DE LA PANTALLA PRINCIPAL SE DEBE MODIFICAR ESTE ARCHIVO
 const Home = () => {
+
+  const renderItem = ({ item }) => {
+    return (
+      <View>
+        <Text style={styles.category}>{item.category}</Text>
+        <Carrousel category={item} />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
         S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
       </Text>
-      <Carrousel />
-    </View>
+      <SearchBar />
+      <FlatList data={categories} renderItem={renderItem} />
+    </SafeAreaView>
   );
 };
 
@@ -30,8 +42,10 @@ const styles = StyleSheet.create({
     color: "#FCA82B",
   },
   category: {
-    flexDirection: "row",
-    justifyContent: "center",
+    fontSize: 20,
+    alignSelf: "flex-start",
+    marginLeft: 20,
+    color: "white",
   },
   movie: {
     width: 60,
