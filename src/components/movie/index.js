@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, TouchableHighlight } from "react-native";
 import { styles } from "./styles";
-import { TouchableHighlight } from "react-native-web";
-
 
 const Movie = ({ movie }) => {
   return (
