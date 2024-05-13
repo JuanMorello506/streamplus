@@ -10,7 +10,7 @@ const Home = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <View>
+      <View style={styles.categoryView}>
         <Text style={styles.category}>{item.category}</Text>
         <Carrousel category={item} />
       </View>
@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: 20,
     color: "white",
+  },
+  categoryView: {
+    marginBottom: 20,
   },
   movie: {
     width: 60,

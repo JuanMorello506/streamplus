@@ -7,14 +7,14 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
   },
   input: {
-    backgroundColor: "grey",
+    backgroundColor: "#D9D9D9",
     width: 298,
     height: 30,
     borderRadius: 9,
     margin: 10,
   },
   button: {
-    backgroundColor: "grey",
+    backgroundColor: "#D9D9D9",
     width: 33,
     height: 30,
     borderRadius: 92,
