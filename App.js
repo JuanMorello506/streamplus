@@ -48,7 +48,7 @@ const App = () => {
 		<Text style={styles.tyc}>Términos & Condiciones</Text>
 		
 		{/* Descomentar para ver el home */}
-		{/* <Home />  */}
+		{/* <Home /> */}
 	</View>
   );
 };
