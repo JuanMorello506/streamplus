@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 import Home from './src/Home';
 
-const {height, width} = Dimensions.get('window');
-
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const {height, width} = useWindowDimensions();
 
-  const handleSubmit = () => {
-    console.log('Username:', username);
-    console.log('Password:', password);
-  };
+	const handleSubmit = () => {
+		console.log('Username:', username);
+		console.log('Password:', password);
+	};
 
   return (
 	<Home />
@@ -64,9 +63,9 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: 'white',
-		fontSize: 50,
+		fontSize: 60,
 		fontFamily: 'sans-serif-medium',
-		marginBottom: 20,
+		marginBottom: 10,
 	},
 	t: {
 		color: '#AD92F1',
@@ -79,6 +78,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		padding: 20,
 		width: '80%',
+		maxWidth: 400,
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
