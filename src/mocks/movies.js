@@ -24,4 +24,6 @@ export const movies = [
     { id: 23, title: 'Interstellar', director: 'Christopher Nolan', year: 2014, category: 'Ciencia Ficción', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRE8xZbi8r7ImwqImi3Wow7AoKwATmbFldLmtbbu5O9w&s'},
     { id: 24, title: 'The Dark Knight Rises', director: 'Christopher Nolan', year: 2012, category: 'Acción', img: 'https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_FMjpg_UX1000_.jpg' },
     { id: 25, title: 'The Shawshank Redemption', director: 'Frank Darabont', year: 1994, category: 'Drama', img: 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg' },
+    { id: 26, title: 'The Wolf of Wall Street', director: 'Martin Scorsese', year: 2013, category: 'Comedia', img: 'https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_.jpg' },
+     
 ];
