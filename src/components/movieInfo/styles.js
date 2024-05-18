@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: "Helvetica",
     fontWeight: "bold",
+    width: 250,
   },
   modalDirectedBy: {
     color: "white",

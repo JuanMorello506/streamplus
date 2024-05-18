@@ -44,7 +44,7 @@ const MovieInfo = ({ visible, onClose, movie }) => {
                 onPress={onClose}
                 underlayColor="#DDDDDD"
               >
-                <Text>Play</Text>
+                <Text style={{ fontSize: 15, color: "white"}}>Play</Text>
               </TouchableHighlight>
 
             <View style={styles.info}>
