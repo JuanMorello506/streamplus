@@ -19,9 +19,10 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>
+      <Text style={styles.title2}>STREAM+</Text>
+      {/* <Text style={styles.title}>
         S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
-      </Text>
+      </Text> */}
       <SearchBar />
       <FlatList data={categories} renderItem={renderItem} />
     </SafeAreaView>
@@ -35,6 +36,13 @@ const styles = StyleSheet.create({
     fontFamily: "sans-serif-medium",
     marginBottom: 20,
   },
+  title2: {
+    color: "white",
+    fontSize: 72,
+    fontFamily: "Helvetica",
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
   t: {
     color: "#AD92F1",
   },
@@ -42,7 +50,7 @@ const styles = StyleSheet.create({
     color: "#FCA82B",
   },
   category: {
-    fontSize: 20,
+    fontSize: 32,
     alignSelf: "flex-start",
     marginLeft: 20,
     color: "white",

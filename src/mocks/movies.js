@@ -25,5 +25,7 @@ export const movies = [
     { id: 24, title: 'The Dark Knight Rises', director: 'Christopher Nolan', year: 2012, category: 'Acción', img: 'https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_FMjpg_UX1000_.jpg' },
     { id: 25, title: 'The Shawshank Redemption', director: 'Frank Darabont', year: 1994, category: 'Drama', img: 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg' },
     { id: 26, title: 'The Wolf of Wall Street', director: 'Martin Scorsese', year: 2013, category: 'Comedia', img: 'https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_.jpg' },
-     
+    { id: 27, title: 'The Great Gatsby', director: 'Baz Luhrmann', year: 2013, category: 'Drama', img: 'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/miniature-schnauzer-art-canvas-print-the-great-gatsby-movie-poster-sandra-sij.jpg' },
+    { id: 28, title: 'The Revenant', director: 'Alejandro González Iñárritu', year: 2015, category: 'Aventura', img: 'https://m.media-amazon.com/images/I/A1BjliXNDPL.jpg' },
+    { id: 29, title: 'La La Land', director: 'Damien Chazelle', year: 2016, category: 'Musical', img: 'https://m.media-amazon.com/images/I/71-u32-oOaL._AC_UF894,1000_QL80_DpWeblab_.jpg' },
 ];
