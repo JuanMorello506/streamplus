@@ -7,7 +7,7 @@ export default function index() {
     const [showMore, setShowMore] = useState(false);
   return (
     <View style={styles.conatainer}>
-        <Text style={styles.text}>Titulo pelicula</Text>
+        <Text style={styles.mainTitle}>Titulo pelicula</Text>
         <View style={styles.details}>
             <View style={styles.detail}>
                 <View style={styles.imageContainer}>
@@ -15,23 +15,32 @@ export default function index() {
                 </View>
                 
                 <View style={styles.movieDetail}>
-                    <Text style={styles.movieDetailText}>Rating: 9.02</Text>
-                    <Text style={styles.movieDetailText}>Rank: 1</Text>
-                    <Text style={styles.movieDetailText}>Duration: 2.10hrs</Text>
-                    <Text style={styles.movieDetailText}>Fav: 2000</Text>
-                    <Text style={styles.movieDetailText}>Status: finished</Text>
-                    <Text style={styles.movieDetailText}>Seasons: 0</Text>
+                    <Text style={styles.movieDetailText}>Rating: <Text style={styles.detailInfo}>9.02</Text></Text>
+                    <Text style={styles.movieDetailText}>Rank: <Text style={styles.detailInfo}>1</Text></Text>
+                    <Text style={styles.movieDetailText}>Duration: <Text style={styles.detailInfo}>2hrs</Text></Text>
+                    <Text style={styles.movieDetailText}>Fav: <Text style={styles.detailInfo}>2000</Text></Text>
+                    <Text style={styles.movieDetailText}>Status: <Text style={styles.detailInfo}>finished</Text></Text>
+                    <Text style={styles.movieDetailText}>Seasons: <Text style={styles.detailInfo}>0</Text></Text>
                 </View>
             </View>
-            <Text>
+            
+            <Text style={styles.synopsis}>
                 {showMore ? synopsysMock : synopsysMock?.substring(0, 250) + '...'}
-                <TouchableOpacity onPress={() => setShowMore(!showMore)}>
+                <TouchableOpacity style={styles.touchAble} onPress={() => setShowMore(!showMore)}>
                     <Text style={styles.buttonText}>{showMore ? 'Show Less' : 'Read More'}</Text>
                 </TouchableOpacity>
 
             </Text>
 
-            <Text>Trailer</Text>
+            <Text style={styles.text}>Watch now</Text>
+            <View style={styles.watchNow}>
+                <View style={styles.video}>
+
+                </View>
+            </View>
+
+            <Text style={styles.text}>Comments</Text>
+            <View style={styles.comentsContainer}></View>
         </View>
     </View>
   )
