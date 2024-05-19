@@ -80,20 +80,4 @@ export const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignSelf: "flex-end",
   	},
-	playButton2: {
-    width: 60,
-    height: 60,
-    borderRadius: 30, // La mitad del ancho y alto para hacer un círculo
-    backgroundColor: 'blue', // Color de fondo del círculo
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
 });
