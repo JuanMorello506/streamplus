@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimension
 import Svg, {Path} from 'react-native-svg';
 import Home from './src/Home.js'
 import MovieProfile from './src/components/movieProfile/index.js'
+import VideoComoponent from './src/components/video/index.js'
+import VideoComponent from './src/components/video/index.js';
 
 const App = () => {
 	const [username, setUsername] = useState('');
@@ -52,6 +54,7 @@ const App = () => {
 	// 	{/* <Home /> */}
 	// </View>
 	<MovieProfile></MovieProfile>
+	
   );
 };
 
