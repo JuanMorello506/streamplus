@@ -53,7 +53,8 @@ const App = () => {
 	// 	{/* Descomentar para ver el home */}
 	// 	{/* <Home /> */}
 	// </View>
-	<MovieProfile></MovieProfile>
+	//<MovieProfile></MovieProfile>
+	<VideoComoponent></VideoComoponent>
 	
   );
 };
