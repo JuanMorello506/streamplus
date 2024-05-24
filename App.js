@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
-import Home from './src/Home';
+import Home from './src/Home.js'
+import MovieProfile from './src/components/movieProfile/index.js'
 
 const App = () => {
 	const [username, setUsername] = useState('');
@@ -14,7 +15,6 @@ const App = () => {
 	};
 
   return (
-	<Home />
 	// <View style={styles.container}>
 	// 	<Text style={styles.title}>S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text></Text>
 	// 	<View style={styles.form}>
@@ -47,8 +47,11 @@ const App = () => {
 	// 	</Svg>
 
 	// 	<Text style={styles.tyc}>Términos & Condiciones</Text>
-
+		
+	// 	{/* Descomentar para ver el home */}
+	// 	{/* <Home /> */}
 	// </View>
+	<MovieProfile></MovieProfile>
   );
 };
 
