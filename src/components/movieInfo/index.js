@@ -8,8 +8,10 @@ import {
   ScrollView,
 } from "react-native";
 import { styles } from "./styles";
+import { useNavigation } from '@react-navigation/native';
 
 const MovieInfo = ({ visible, onClose, movie }) => {
+	const navigation = useNavigation()
   return (
     <Modal
       transparent={true}
@@ -41,7 +43,9 @@ const MovieInfo = ({ visible, onClose, movie }) => {
 				<View style={styles.modalInfo}>
 					<TouchableHighlight
 						style={styles.playButton}
-						onPress={onClose}
+						onPress={() => {
+							navigation.navigate('MovieProfile', { img: movie.img, title: movie.title })
+						}}
 						underlayColor="#DDDDDD"
 					>
 						<Text style={{ fontSize: 15, color: "white"}}>Play</Text>
