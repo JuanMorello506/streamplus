@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './src/Home.js'
-import MovieProfile from './src/components/movieProfile/index.js'
-import LogInRegister from './src/components/logInRegister/index.js';
+import MovieProfile from './src/components/movieProfile/MovieProfile.js'
+import LogInRegister from './src/components/logInRegister/LogInRegister.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 

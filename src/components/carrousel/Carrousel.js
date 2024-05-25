@@ -5,9 +5,9 @@ import {
   ScrollView,
   FlatList
 } from "react-native";
-import { movies } from "../../mocks/movies";
-import { styles } from "./styles";
-import Movie from "../movie/index.js";
+import { movies } from "../../mocks/movies.js";
+import { styles } from "./styles.js";
+import Movie from "../movie/Movie.js";
 
 const Carrousel = ({ category }) => {
 
