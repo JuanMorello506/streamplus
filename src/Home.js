@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, FlatList, StatusBar, SafeAreaView, ScrollView } from "react-native";
-import Carrousel from "./components/carrousel/index.js";
-import SearchBar from "./components/searchBar/index.js";
+import Carrousel from "./components/carrousel/Carrousel.js";
+import SearchBar from "./components/searchBar/SearchBar.js";
 import { categories } from "./mocks/categories.js";
 
 //ESTE ES EL HOME DE LA APLICACION

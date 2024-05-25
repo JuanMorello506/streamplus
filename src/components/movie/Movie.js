@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, TouchableHighlight, Modal, Text } from "react-native";
 import { styles } from "./styles";
-import MovieInfo from "../movieInfo";
+import MovieInfo from "../movieInfo/MovieInfo";
 
 const Movie = ({ movie }) => {
   const [modalVisible, setModalVisible] = useState(false);
