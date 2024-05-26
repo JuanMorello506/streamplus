@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimension
 import Svg, {Path} from 'react-native-svg';
 import Home from './src/Home.js'
 import MovieProfile from './src/components/movieProfile/index.js'
+import PerfilData from './src/PerfilData.js'
+import { users } from './src/mocks/users.js';
 
 const App = () => {
 	const [username, setUsername] = useState('');
@@ -49,9 +51,10 @@ const App = () => {
 	// 	<Text style={styles.tyc}>Términos & Condiciones</Text>
 		
 	// 	{/* Descomentar para ver el home */}
-	// 	{/* <Home /> */}
+	 <Home user={users[0]}/>
+	//<PerfilData user={users[0]}/>
 	// </View>
-	<MovieProfile></MovieProfile>
+	//<MovieProfile></MovieProfile>
   );
 };
 

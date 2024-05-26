@@ -7,54 +7,71 @@ import {
   StatusBar,
   SafeAreaView,
   ScrollView,
-  Touchable,
+  TextInput,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import Carrousel from "./components/carrousel/index.js";
 import SearchBar from "./components/searchBar/index.js";
 import { categories } from "./mocks/categories.js";
 
-//ESTE ES EL HOME DE LA APLICACION
-//SI SE QUIERE CAMBIAR EL CONTENIDO DE LA PANTALLA PRINCIPAL SE DEBE MODIFICAR ESTE ARCHIVO
-const Home = ({ user }) => {
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.categoryView}>
-        <Text style={styles.category}>{item.category}</Text>
-        <Carrousel category={item} />
-      </View>
-    );
-  };
-
+const PerfilData = ({ user }) => {
+  const [editMode, setEditMode] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.data}>
-        <TouchableOpacity
-          style={styles.perfilButton}
-          onPress={() => console.log("pressed")}
-        >
-          <Image
-            style={styles.image}
-            source={{
-              uri: "https://www.pinclipart.com/picdir/middle/496-4968268_profile-icon-png-white-clipart.png",
-            }}
-          />
-        </TouchableOpacity>
-        <Text style={styles.welcome}>Welcome {user.name}</Text>
-      </View>
-
       <Text style={styles.title2}>STREAM+</Text>
+      <View style={styles.perfil}>
+        {console.log(user)}
+        <Text style={styles.title3}>Tus datos de perfil</Text>
+        <Text style={styles.label}>Nombre de usuario</Text>
+        <TextInput
+          style={styles.input}
+          value={user.userName}
+          editable={editMode}
+        />
+        <Text style={styles.label}>Nombre</Text>
+        <TextInput style={styles.input} value={user.name} editable={editMode} />
+        <Text style={styles.label}>Correo electrónico</Text>
+        <TextInput
+          style={styles.input}
+          value={user.email}
+          editable={editMode}
+        />
+        <Text style={styles.label}>Contraseña</Text>
+        <TextInput
+          style={styles.input}
+          value={user.password}
+          secureTextEntry={true}
+          editable={editMode}
+        />
+      </View>
+      <View style={styles.buttons}>
+        {!editMode ? (
+          <TouchableOpacity style={styles.button} onPress={() => setEditMode(true)}>
+            <Text style={styles.buttonText}>Editar</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={() => setEditMode(false)}>
+            <Text style={styles.buttonText}>Aceptar</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       {/* <Text style={styles.title}>
         S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
       </Text> */}
-      <SearchBar />
-      <FlatList data={categories} renderItem={renderItem} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  perfil: {
+    backgroundColor: "#14111C",
+    borderRadius: 10,
+    padding: 20,
+    width: "100%",
+    justifyContent: "top",
+    alignItems: "left",
+    flexDirection: "column",
+  },
   title: {
     color: "white",
     fontSize: 50,
@@ -64,6 +81,13 @@ const styles = StyleSheet.create({
   title2: {
     color: "white",
     fontSize: 72,
+    fontFamily: "Helvetica",
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+  title3: {
+    color: "white",
+    fontSize: 40,
     fontFamily: "Helvetica",
     marginBottom: 20,
     fontWeight: "bold",
@@ -132,9 +156,21 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     fontFamily: "sans-serif-light",
+    color: "white",
     borderRadius: 5,
     padding: 10,
-    backgroundColor: "#D9D9D9",
+    marginBottom: 10,
+    backgroundColor: "#14111C",
+    width: "100%",
+  },
+  inputPassword: {
+    fontSize: 16,
+    fontFamily: "sans-serif-light",
+    color: "white",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: "#14111C",
   },
   button: {
     backgroundColor: "#AD92F1",
@@ -164,31 +200,6 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
   },
-  image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 5,
-  },
-  perfilButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    margin: 10,
-  },
-  data: {
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "flex-start",
-  },
-  welcome: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "sans-serif-medium",
-    marginBottom: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    },
 });
 
-export default Home;
+export default PerfilData;
