@@ -10,21 +10,20 @@ const App = () => {
 	const Stack = createStackNavigator()
 
 	const [authData, setAuthData] = useState(defaultAuthData);
-
+	console.log(defaultAuthData)
 	return (
 		<AuthContextGlobal.Provider value={{authData, setAuthData}}>
 		  <NavigationContainer>
 			<Stack.Navigator initialRouteName={authData ? 'homeScreen' : 'LogInRegister'}>
 				{/* <Stack.Navigator initialRouteName='homeScreen'> */}
 				<Stack.Screen name='homeScreen' component={Home} options={{
-					title: '',
+					title: 'Home',
 					headerShown: false
 				
 				}} />
 				<Stack.Screen name='LogInRegister' component={LogInRegister} options={{
-					title: '',
-					headerBackTitle: 'Back',
-					headerBackTitleVisible: false
+					title: 'asd',
+					headerShown: false
 				}} />
 				<Stack.Screen name='MovieProfile' component={MovieProfile} options={{
 					title: '',
