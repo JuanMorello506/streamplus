@@ -5,8 +5,12 @@ import LogInRegister from './src/components/logInRegister/LogInRegister.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuthContextGlobal, {defaultAuthData} from './src/services/AuthContext/index.js';
+import { useFonts } from 'expo-font';
 
 const App = () => {
+	const [fontsLoaded] = useFonts({
+		'Helvetica': require('./assets/fonts/Helvetica.ttf'),
+	  });
 	const Stack = createStackNavigator()
 
 	const [authData, setAuthData] = useState(defaultAuthData);
