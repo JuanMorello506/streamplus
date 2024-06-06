@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 import { styles } from "./style.js";
+import AuthContext from '../../services/AuthContext/index.js';
 
-export default function LogInRegister() {
+export default function LogInRegister({ navigation }) {
     const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const {height, width} = useWindowDimensions();
 
+	const {setAuthData} = useContext(AuthContext);
+
 	const handleSubmit = () => {
 		console.log('Username:', username);
 		console.log('Password:', password);
+
+		//PONER AUTENTICACION etc.
+		setAuthData(true);
+		navigation.navigate('homeScreen');
 	};
 
   return (
@@ -44,8 +51,6 @@ export default function LogInRegister() {
      		<Path d={`M0 150 L0 0 C100 75 ${width / 1.5} 75 ${width} 75 L${width} 150 Z`} fill="#F7F0F0" />
 	 	</Svg>
 	 	<Text style={styles.tyc}>Términos & Condiciones</Text>	
-	 	{/* Descomentar para ver el home */}
-	 	{/* <Home /> */}
 	 </View>
   )
 }
