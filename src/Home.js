@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, FlatList, StatusBar, SafeAreaView, ScrollView } from "react-native";
+import { View, StyleSheet, Text, FlatList, StatusBar, SafeAreaView, ScrollView, TouchableOpacity, Image } from "react-native";
 import Carrousel from "./components/carrousel/Carrousel.js";
 import SearchBar from "./components/searchBar/SearchBar.js";
 import { categories } from "./mocks/categories.js";
@@ -30,7 +30,7 @@ const Home = ({ user }) => {
             }}
           />
         </TouchableOpacity>
-        <Text style={styles.welcome}>Welcome {user.name}</Text>
+        <Text style={styles.welcome}>Welcome </Text>
       </View>
 
       <Text style={styles.title2}>STREAM+</Text>

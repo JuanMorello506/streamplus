@@ -1,12 +1,19 @@
 import React,{ useState } from "react";
 import { View,Text, Image, Button, TouchableOpacity} from "react-native";
 import {styles} from './styles'
+import { useNavigation } from '@react-navigation/native';
 
 export default function MovieProfile({route}) {
     const {img, title} = route.params
     const synopsysMock = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
     const [showMore, setShowMore] = useState(false);
-  return (
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+        console.log('pressed')
+        navigation.navigate('VideoComponent')
+    }
+    return (
     <View style={styles.conatainer}>
         <Text style={styles.mainTitle}>{title}</Text>
         <View style={styles.details}>
@@ -34,11 +41,8 @@ export default function MovieProfile({route}) {
             </Text>
 
             <Text style={styles.text}>Watch now</Text>
-            <View style={styles.watchNow}>
-                <View style={styles.video}>
-
-                </View>
-            </View>
+            
+            <TouchableOpacity style={styles.watchNow} onPress={handlePress}/>
 
             <Text style={styles.text}>Comments</Text>
             <View style={styles.comentsContainer}></View>
