@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions} from 'react-native';
-import Svg, {Path} from 'react-native-svg';
 import Home from './src/Home.js'
 import MovieProfile from './src/components/movieProfile/index.js'
-import VideoComoponent from './src/components/video/index.js'
-import VideoComponent from './src/components/video/index.js';
 
 const App = () => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const {height, width} = useWindowDimensions();
+	const Stack = createStackNavigator()
 
-	const handleSubmit = () => {
-		console.log('Username:', username);
-		console.log('Password:', password);
-	};
+	const [authData, setAuthData] = useState(defaultAuthData);
 
   return (
 	// <View style={styles.container}>
@@ -53,9 +44,7 @@ const App = () => {
 	// 	{/* Descomentar para ver el home */}
 	// 	{/* <Home /> */}
 	// </View>
-	//<MovieProfile></MovieProfile>
-	<VideoComoponent></VideoComoponent>
-	
+	<MovieProfile></MovieProfile>
   );
 };
 

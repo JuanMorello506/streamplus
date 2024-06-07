@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, FlatList, StatusBar, SafeAreaView, ScrollView } from "react-native";
-import Carrousel from "./components/carrousel/index.js";
-import SearchBar from "./components/searchBar/index.js";
+import Carrousel from "./components/carrousel/Carrousel.js";
+import SearchBar from "./components/searchBar/SearchBar.js";
 import { categories } from "./mocks/categories.js";
 
 //ESTE ES EL HOME DE LA APLICACION
@@ -10,7 +10,7 @@ const Home = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <View>
+      <View style={styles.categoryView}>
         <Text style={styles.category}>{item.category}</Text>
         <Carrousel category={item} />
       </View>
@@ -19,9 +19,10 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>
+      <Text style={styles.title2}>STREAM+</Text>
+      {/* <Text style={styles.title}>
         S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
-      </Text>
+      </Text> */}
       <SearchBar />
       <FlatList data={categories} renderItem={renderItem} />
     </SafeAreaView>
@@ -35,6 +36,13 @@ const styles = StyleSheet.create({
     fontFamily: "sans-serif-medium",
     marginBottom: 20,
   },
+  title2: {
+    color: "white",
+    fontSize: 72,
+    fontFamily: "Helvetica",
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
   t: {
     color: "#AD92F1",
   },
@@ -42,10 +50,13 @@ const styles = StyleSheet.create({
     color: "#FCA82B",
   },
   category: {
-    fontSize: 20,
+    fontSize: 32,
     alignSelf: "flex-start",
     marginLeft: 20,
     color: "white",
+  },
+  categoryView: {
+    marginBottom: 20,
   },
   movie: {
     width: 60,
