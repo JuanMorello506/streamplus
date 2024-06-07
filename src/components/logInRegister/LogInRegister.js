@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Svg, {Path} from 'react-native-svg';
 import { styles } from "./style.js";
 import AuthContext from '../../services/AuthContext/index.js';
 
-export default function LogInRegister({ navigation }) {
+export default function LogInRegister() {
     const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const {height, width} = useWindowDimensions();
+	const navigation = useNavigation();
 
 	const {setAuthData} = useContext(AuthContext);
 
