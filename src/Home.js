@@ -1,17 +1,49 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, FlatList, StatusBar, SafeAreaView, ScrollView, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  StatusBar,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from "react-native";
 import Carrousel from "./components/carrousel/Carrousel.js";
 import SearchBar from "./components/searchBar/SearchBar.js";
 import { categories } from "./mocks/categories.js";
+import { movies } from "../src/mocks/movies.js";
+import Movie from "./components/movie/Movie.js";
 
-//ESTE ES EL HOME DE LA APLICACION
-//SI SE QUIERE CAMBIAR EL CONTENIDO DE LA PANTALLA PRINCIPAL SE DEBE MODIFICAR ESTE ARCHIVO
+const { width } = Dimensions.get("window");
+
 const Home = ({ user }) => {
+  const [searchText, setSearchText] = useState("");
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const numColumns = 3;
+  const itemWidth = width / numColumns - 20;
+  const ItemSeparator = () => <View style={styles.separator} />;
+
   const renderItem = ({ item }) => {
-    return (
+    return searchText ? ( //se está buscando texto?
+      filteredMovies.length > 0 ? ( //se encontraron resultados?
+        <View style={[styles.itemContainer, { width: itemWidth }]}>
+          <Movie movie={item} />
+        </View>
+      ) : (
+        <View>
+          <Text>No se encontraron coincidencias.</Text>
+        </View>
+      )
+    ) : (
       <View style={styles.categoryView}>
         <Text style={styles.category}>{item.category}</Text>
-        <Carrousel category={item} />
+        <Carrousel category={item} movies={movies} />
       </View>
     );
   };
@@ -37,8 +69,17 @@ const Home = ({ user }) => {
       {/* <Text style={styles.title}>
         S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
       </Text> */}
-      <SearchBar />
-      <FlatList data={categories} renderItem={renderItem} />
+      <SearchBar updateSearch={setSearchText} />
+      {searchText ? (
+        <FlatList
+          data={filteredMovies}
+          renderItem={renderItem}
+          contentContainerStyle={styles.flatListContent}
+          ItemSeparatorComponent={ItemSeparator}
+        />
+      ) : (
+        <FlatList data={categories} renderItem={renderItem} />
+      )}
     </SafeAreaView>
   );
 };
@@ -49,6 +90,14 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontFamily: "sans-serif-medium",
     marginBottom: 20,
+  },
+  flatListContent: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  itemContainer: {
+    width: "100%",
+    marginLeft: 10,
   },
   title2: {
     color: "white",
@@ -177,7 +226,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    },
+  },
 });
 
 export default Home;

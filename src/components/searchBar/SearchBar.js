@@ -2,16 +2,26 @@ import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Image, StyleSheet, Text, StatusBar, SafeAreaView } from "react-native";
 import { styles } from "./styles";
 
-const SearchBar = () => {
+const SearchBar = ({ updateSearch }) => {
+  const [text, setText] = useState('');
+
+  const handleChangeText = (newText) => {
+    setText(newText);
+    updateSearch(newText);
+  };
+
+  const handlePress = () => {
+    console.log('pressed');
+  };
   return (
     <View style={styles.view}>
       <TextInput
         style={styles.input}
         value={console.log('value')}
-        onChangeText={console.log('onchange')}
+        onChangeText={handleChangeText}
         placeholder="Ingrese la película..."
       />
-    <TouchableOpacity style={styles.button}> 
+    <TouchableOpacity style={styles.button} onPress={handlePress}> 
     <Image
         style={styles.image}
         source={{
