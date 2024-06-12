@@ -21,6 +21,12 @@ export const styles = StyleSheet.create({
 	plus: {
 		color: '#FCA82B',
 	},
+	titlePage: {
+		color: 'white',
+		fontSize: 34,
+		fontFamily: 'sans-serif-medium',
+		marginBottom: 10,
+	},
 	form: {
 		backgroundColor: '#332B47',
 		borderRadius: 10,
@@ -62,6 +68,24 @@ export const styles = StyleSheet.create({
 		fontSize: 20,
 		fontFamily: 'sans-serif-medium',
 	},
+	noAccount: {
+		color: 'white',
+		fontSize: 13,
+		fontFamily: 'sans-serif-medium',
+		marginTop: 10,
+		zIndex: 1,
+	},
+	register: {
+		fontSize: 15,
+		textDecorationLine: 'underline'
+	},
+	wave: {
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		width: '100%',
+		zIndex: 0,
+	},
 	tyc: {
 		color: 'black',
 		fontSize: 16,
@@ -70,11 +94,5 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: 15,
 		left: 20,
-	},
-	wave : {
-		position: 'absolute',
-		bottom: 0,
-		left: 0,
-		width: '100%',
 	},
 });
