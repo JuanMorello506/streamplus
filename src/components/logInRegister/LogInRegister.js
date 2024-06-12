@@ -4,12 +4,15 @@ import { useNavigation } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from "./style.js";
 import AuthContext from '../../services/AuthContext/index.js';
+import apiUser from '../../services/user.js'
 
 export default function LogInRegister() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [esLogin, setEsLogin] = useState(true);
+
+	const [message, setMessage] = useState('');
 
 	const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 	const { height, width } = useWindowDimensions();
@@ -35,7 +38,28 @@ export default function LogInRegister() {
 		console.log('Username:', username);
 		console.log('Password:', password);
 
-		//PONER AUTENTICACION etc.
+		// if (esLogin) {
+		// 	alert('llegue')
+		// 	apiUser.loginUser({ userName: username, password })
+		// 		.then(response => {
+		// 			alert('llegue2')
+		// 			setAuthData(true);
+		// 			navigation.navigate('homeScreen');
+		// 			alert('llegue3')
+		// 		})
+		// 		.catch(error => setMessage(`Error: ${error}`, alert('llegue4')));
+		// } else {
+		// 	apiUser.createUser({ userName: username, password, mail: email })
+		// 		.then(response => {
+		// 			alert('registro')
+		// 			setMessage('Usuario creado con éxito');
+		// 			setEsLogin(true);
+		// 			alert('registro2');
+		// 		})
+		// 		.catch(error => setMessage(`Error: ${error}`));
+		// }
+
+		// PONER AUTENTICACION etc.
 		setAuthData(true);
 		navigation.navigate('homeScreen');
 	};
