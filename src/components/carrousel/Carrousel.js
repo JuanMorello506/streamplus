@@ -5,11 +5,10 @@ import {
   ScrollView,
   FlatList
 } from "react-native";
-import { movies } from "../../mocks/movies.js";
 import { styles } from "./styles.js";
 import Movie from "../movie/Movie.js";
 
-const Carrousel = ({ category }) => {
+const Carrousel = ({ category, movies }) => {
 
   const renderItem = ({ item }) => {
     if(item.category == category.category)
