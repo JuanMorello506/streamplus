@@ -39,22 +39,17 @@ export default function LogInRegister() {
 		console.log('Password:', password);
 
 		if (esLogin) {
-			alert('llegue')
 			apiUser.loginUser({ userName: userName, password })
 				.then(response => {
-					alert('llegue2')
 					setAuthData(true);
 					navigation.navigate('homeScreen')
-					alert('llegue3')
 				})
-				.catch(error => setMessage(`Error: ${error}`, alert('llegue4')));
+				.catch(error => setMessage(`Error: ${error}`));
 		} else {
 			apiUser.createUser({ userName: userName, password, mail: mail })
 				.then(response => {
-					alert('registro')
 					setMessage('Usuario creado con éxito');
 					setEsLogin(true);
-					alert('registro2');
 				})
 				.catch(error => setMessage(`Error: ${error}`));
 		}

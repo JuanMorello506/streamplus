@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -10,12 +10,12 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import Carrousel from "./components/carrousel/index.js";
-import SearchBar from "./components/searchBar/index.js";
-import { categories } from "./mocks/categories.js";
+import AuthContextGlobal from './services/AuthContext/index.js';
 
-const PerfilData = ({ user }) => {
+const PerfilData = () => {
   const [editMode, setEditMode] = useState(false);
+  const { authData, setAuthData } = useContext(AuthContextGlobal);
+  const user = { userName: "userName", name: "name", email: "email", password: "password" }
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title2}>STREAM+</Text>

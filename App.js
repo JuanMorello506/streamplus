@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Home from "./src/Home.js";
+import PerfilData from "./src/PerfilData.js";
 import MovieProfile from "./src/components/movieProfile/MovieProfile.js";
 import LogInRegister from "./src/components/logInRegister/LogInRegister.js";
 import { NavigationContainer } from "@react-navigation/native";
@@ -37,7 +38,15 @@ const App = () => {
             name="LogInRegister"
             component={LogInRegister}
             options={{
-              title: "asd",
+              title: "LogInRegister",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="profileScreen"
+            component={PerfilData}
+            options={{
+              title: "profileScreen",
               headerShown: false,
             }}
           />
@@ -45,7 +54,7 @@ const App = () => {
             name="MovieProfile"
             component={MovieProfile}
             options={{
-              title: "asd",
+              title: "MovieProfile",
               headerShown: false,
             }}
           />
@@ -53,7 +62,7 @@ const App = () => {
             name="VideoComponent"
             component={VideoComponent}
             options={{
-              title: "asd",
+              title: "VideoComponent",
               headerShown: false,
             }}
           />

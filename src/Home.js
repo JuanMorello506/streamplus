@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -16,6 +16,8 @@ import SearchBar from "./components/searchBar/SearchBar.js";
 import { categories } from "./mocks/categories.js";
 import { movies } from "../src/mocks/movies.js";
 import Movie from "./components/movie/Movie.js";
+import { useNavigation } from "@react-navigation/native";
+import AuthContextGlobal from './services/AuthContext/index.js';
 
 const { width } = Dimensions.get("window");
 
@@ -24,9 +26,15 @@ const Home = ({ user }) => {
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchText.toLowerCase())
   );
+  const { authData, setAuthData } = useContext(AuthContextGlobal);
 
+  const navigation = useNavigation();
   const numColumns = 3;
   const itemWidth = width / numColumns - 6;
+
+  const handlePressPerfil = () => {
+    navigation.navigate('profileScreen')
+  };
 
   const renderItem = ({ item }) => {
     return searchText ? ( //se está buscando texto?
@@ -52,7 +60,7 @@ const Home = ({ user }) => {
       <View style={styles.data}>
         <TouchableOpacity
           style={styles.perfilButton}
-          onPress={() => console.log("pressed")}
+          onPress={handlePressPerfil}
         >
           <Image
             style={styles.image}
