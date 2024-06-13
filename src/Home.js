@@ -26,8 +26,7 @@ const Home = ({ user }) => {
   );
 
   const numColumns = 3;
-  const itemWidth = width / numColumns - 20;
-  const ItemSeparator = () => <View style={styles.separator} />;
+  const itemWidth = width / numColumns - 6;
 
   const renderItem = ({ item }) => {
     return searchText ? ( //se está buscando texto?
@@ -58,11 +57,11 @@ const Home = ({ user }) => {
           <Image
             style={styles.image}
             source={{
-              uri: "https://www.pinclipart.com/picdir/middle/496-4968268_profile-icon-png-white-clipart.png",
+              uri: "https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png",
             }}
           />
         </TouchableOpacity>
-        <Text style={styles.welcome}>Welcome </Text>
+        <Text style={styles.welcome}>Bienvenido </Text>
       </View>
 
       <Text style={styles.title2}>STREAM+</Text>
@@ -75,10 +74,9 @@ const Home = ({ user }) => {
           data={filteredMovies}
           renderItem={renderItem}
           contentContainerStyle={styles.flatListContent}
-          ItemSeparatorComponent={ItemSeparator}
         />
       ) : (
-        <FlatList data={categories} renderItem={renderItem} />
+        <FlatList data={categories} renderItem={renderItem}/>
       )}
     </SafeAreaView>
   );
@@ -94,10 +92,11 @@ const styles = StyleSheet.create({
   flatListContent: {
     flexDirection: "row",
     flexWrap: "wrap",
+    borderRadius: 15,
+    justifyContent: "center",
   },
   itemContainer: {
     width: "100%",
-    marginLeft: 10,
   },
   title2: {
     color: "white",
@@ -216,16 +215,12 @@ const styles = StyleSheet.create({
   data: {
     flexDirection: "row",
     width: "100%",
-    alignItems: "flex-start",
+    alignItems: "center"
   },
   welcome: {
-    color: "white",
+    color: 'white',
     fontSize: 20,
-    fontFamily: "sans-serif-medium",
-    marginBottom: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
+    fontFamily: 'Helvetica'
   },
 });
 

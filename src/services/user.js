@@ -1,13 +1,14 @@
-const BASE_URL = 'https://localhost:8080';
-
+const BASE_URL = 'http://localhost:8080/streamplus/user/';
+//BUSCAR EN IPCONFIG LA IPV4 Y REEMPLAZARLA POR localhost
 const createUser = async ({ userName, password, mail }) => {
 	try {
-		const response = await fetch(`${BASE_URL}register`, {
+		const request = { userName: userName, password: password, mail: mail }
+		const response = await fetch(`${BASE_URL}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ userName, password, mail }),
+			body: JSON.stringify(request),
 		});
 		if (response.ok) {
 			return await response.json();
@@ -17,7 +18,6 @@ const createUser = async ({ userName, password, mail }) => {
 		throw error;
 	}
 };
-
 
 const loginUser = async ({ userName, password }) => {
 	try {

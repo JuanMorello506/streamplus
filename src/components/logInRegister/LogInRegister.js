@@ -7,9 +7,9 @@ import AuthContext from '../../services/AuthContext/index.js';
 import apiUser from '../../services/user.js'
 
 export default function LogInRegister() {
-	const [username, setUsername] = useState('');
+	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
-	const [email, setEmail] = useState('');
+	const [mail, setMail] = useState('');
 	const [esLogin, setEsLogin] = useState(true);
 
 	const [message, setMessage] = useState('');
@@ -35,29 +35,29 @@ export default function LogInRegister() {
 	}, []);
 
 	const handleSubmit = () => {
-		console.log('Username:', username);
+		console.log('userName:', userName);
 		console.log('Password:', password);
 
-		// if (esLogin) {
-		// 	alert('llegue')
-		// 	apiUser.loginUser({ userName: username, password })
-		// 		.then(response => {
-		// 			alert('llegue2')
-		// 			setAuthData(true);
-		// 			navigation.navigate('homeScreen');
-		// 			alert('llegue3')
-		// 		})
-		// 		.catch(error => setMessage(`Error: ${error}`, alert('llegue4')));
-		// } else {
-		// 	apiUser.createUser({ userName: username, password, mail: email })
-		// 		.then(response => {
-		// 			alert('registro')
-		// 			setMessage('Usuario creado con éxito');
-		// 			setEsLogin(true);
-		// 			alert('registro2');
-		// 		})
-		// 		.catch(error => setMessage(`Error: ${error}`));
-		// }
+		if (esLogin) {
+			alert('llegue')
+			apiUser.loginUser({ userName: userName, password })
+				.then(response => {
+					alert('llegue2')
+					setAuthData(true);
+					navigation.navigate('homeScreen')
+					alert('llegue3')
+				})
+				.catch(error => setMessage(`Error: ${error}`, alert('llegue4')));
+		} else {
+			apiUser.createUser({ userName: userName, password, mail: mail })
+				.then(response => {
+					alert('registro')
+					setMessage('Usuario creado con éxito');
+					setEsLogin(true);
+					alert('registro2');
+				})
+				.catch(error => setMessage(`Error: ${error}`));
+		}
 
 		// PONER AUTENTICACION etc.
 		setAuthData(true);
@@ -73,8 +73,8 @@ export default function LogInRegister() {
 					<Text style={styles.label}>Nombre de usuario:</Text>
 					<TextInput
 						style={styles.input}
-						value={username}
-						onChangeText={setUsername}
+						value={userName}
+						onChangeText={setUserName}
 						placeholder='Ingrese su usuario...'
 					/>
 				</View>
@@ -83,8 +83,8 @@ export default function LogInRegister() {
 						<Text style={styles.label}>Correo electrónico:</Text>
 						<TextInput
 							style={styles.input}
-							value={email}
-							onChangeText={setEmail}
+							value={mail}
+							onChangeText={setMail}
 							placeholder='Ingrese su correo...'
 						/>
 					</View>
