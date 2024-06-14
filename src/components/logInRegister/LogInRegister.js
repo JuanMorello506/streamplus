@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimension
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from "./style.js";
-import 	MovieContext from '../../services/AuthContext/index.js';
+import MovieContext from '../../services/AuthContext/index.js';
 import apiUser from '../../services/user.js'
 
 
@@ -18,7 +18,7 @@ export default function LogInRegister() {
 	const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 	const { height, width } = useWindowDimensions();
 	const navigation = useNavigation();
-	const {setAuthData} = useContext(MovieContext)
+	const { setAuthData } = useContext(MovieContext)
 
 	useEffect(() => {
 		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -34,29 +34,36 @@ export default function LogInRegister() {
 		};
 	}, []);
 
-	const handleSubmit = () => {
-		console.log('userName:', userName);
-		console.log('Password:', password);
-
-		if (esLogin) {
-			apiUser.loginUser({ userName: userName, password })
-				.then(response => {
+	const handleSubmit = async () => {
+		console.log("Submitting:", { userName, password });
+		if (!userName || !password) {
+			setMessage("completar campos");
+			return;
+		}
+		try {
+			if (esLogin) {
+				// console.log("Logging con:", { userName, password });
+				const response = await apiUser.loginUser({ userName, password });
+				if (response.success) {
 					setAuthData(true);
-					navigation.navigate('homeScreen')
-				})
-				.catch(error => setMessage(`Error: ${error}`));
-		} else {
-			apiUser.createUser({ userName: userName, password, mail: mail })
-				.then(response => {
+					navigation.navigate('homeScreen');
+				} else {
+					setMessage(response.message);
+				}
+			} else {
+				// console.log("Registro con:", { userName, password, mail });
+				const response = await apiUser.createUser({ userName, password, mail });
+				if (response.success) {
 					setMessage('Usuario creado con éxito');
 					setEsLogin(true);
-				})
-				.catch(error => setMessage(`Error: ${error}`));
+				} else {
+					setMessage(response.message);
+				}
+			}
+		} catch (error) {
+			// console.error("Error:", error.message);
+			setMessage(`Error: ${error.message}`);
 		}
-
-		// PONER AUTENTICACION etc.
-		setAuthData(true);
-		navigation.navigate('homeScreen');
 	};
 
 	return (

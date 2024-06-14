@@ -1,4 +1,5 @@
-const BASE_URL = 'http://192.168.0.8:8080/streamplus/user/';
+// const BASE_URL = 'http://192.168.0.8:8080/streamplus/user/';
+const BASE_URL = 'http://192.168.0.211:8080/streamplus/user/';	//Mat
 //BUSCAR EN IPCONFIG LA IPV4 Y REEMPLAZARLA POR localhost
 const createUser = async ({ userName, password, mail }) => {
 	try {
@@ -29,9 +30,11 @@ const loginUser = async ({ userName, password }) => {
 			body: JSON.stringify({ userName, password }),
 		});
 		if (response.ok) {
-			return await response.json();
+			const data = await response.json();
+			return data;
 		}
-		throw new Error('Error al iniciar sesión');
+		const errorData = await response.json();
+		throw new Error(errorData.message);
 	} catch (error) {
 		throw error;
 	}
