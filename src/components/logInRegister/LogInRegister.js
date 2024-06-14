@@ -3,8 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimension
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from "./style.js";
-import AuthContext from '../../services/AuthContext/index.js';
+import 	MovieContext from '../../services/AuthContext/index.js';
 import apiUser from '../../services/user.js'
+
 
 export default function LogInRegister() {
 	const [userName, setUserName] = useState('');
@@ -17,8 +18,7 @@ export default function LogInRegister() {
 	const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 	const { height, width } = useWindowDimensions();
 	const navigation = useNavigation();
-
-	const { setAuthData } = useContext(AuthContext);
+	const {setAuthData} = useContext(MovieContext)
 
 	useEffect(() => {
 		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {

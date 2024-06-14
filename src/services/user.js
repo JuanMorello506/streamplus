@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/streamplus/user/';
+const BASE_URL = 'http://192.168.0.8:8080/streamplus/user/';
 //BUSCAR EN IPCONFIG LA IPV4 Y REEMPLAZARLA POR localhost
 const createUser = async ({ userName, password, mail }) => {
 	try {
