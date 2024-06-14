@@ -14,19 +14,19 @@ import {
 import Carrousel from "./components/carrousel/Carrousel.js";
 import SearchBar from "./components/searchBar/SearchBar.js";
 import { categories } from "./mocks/categories.js";
-import { movies } from "../src/mocks/movies.js";
 import Movie from "./components/movie/Movie.js";
 import { useNavigation } from "@react-navigation/native";
-import AuthContextGlobal from './services/AuthContext/index.js';
+import MovieContext from './services/AuthContext/index.js';
 
 const { width } = Dimensions.get("window");
 
 const Home = ({ user }) => {
   const [searchText, setSearchText] = useState("");
+  const {movies} = useContext(MovieContext);
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchText.toLowerCase())
   );
-  const { authData, setAuthData } = useContext(AuthContextGlobal);
+  
 
   const navigation = useNavigation();
   const numColumns = 3;
