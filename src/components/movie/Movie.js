@@ -6,13 +6,6 @@ import MovieInfo from "../movieInfo/MovieInfo";
 const Movie = ({ movie }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-
-  const handlePress = () => {
-    console.log("pressed");
-    <MovieInfo movie={movie} click={true} />;
-    console.log("pase");
-  };
-
   return (
     <>
       <TouchableHighlight style={styles.movie} onPress={() => setModalVisible(true)}>
