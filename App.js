@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Home from "./src/Home.js";
 import PerfilData from "./src/PerfilData.js";
 import MovieProfile from "./src/components/movieProfile/MovieProfile.js";
@@ -10,17 +10,20 @@ import AuthContextGlobal, {
 } from "./src/services/AuthContext/index.js";
 import { useFonts } from "expo-font";
 import VideoComponent from "./src/components/video/VideoComponent.js";
+import MovieContext, { MovieProvider } from "./src/services/AuthContext/index.js";
+
 
 const App = () => {
   const [fontsLoaded] = useFonts({
     Helvetica: require("./assets/fonts/Helvetica.ttf"),
   });
   const Stack = createStackNavigator();
-
-  const [authData, setAuthData] = useState(defaultAuthData);
+  const authData = useContext(MovieContext)
+  console.log(authData)
+  
   console.log(defaultAuthData);
   return (
-    <AuthContextGlobal.Provider value={{ authData, setAuthData }}>
+    <MovieProvider>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={authData ? "homeScreen" : "LogInRegister"}
@@ -68,7 +71,7 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </AuthContextGlobal.Provider>
+    </MovieProvider>
   );
 };
 

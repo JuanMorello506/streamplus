@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   View,
   Image,
@@ -6,10 +6,11 @@ import {
   FlatList
 } from "react-native";
 import { styles } from "./styles.js";
-import Movie from "../movie/Movie.js";
+import React, { useContext } from 'react';
+
 
 const Carrousel = ({ category, movies }) => {
-
+  
   const renderItem = ({ item }) => {
     if(item.category == category.category)
      return ( <Movie movie={item}/> )
