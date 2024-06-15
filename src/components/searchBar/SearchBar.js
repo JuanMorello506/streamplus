@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Image, StyleSheet, Text, StatusBar, SafeAreaView } from "react-native";
 import { styles } from "./styles";
+import Filter from "../filter/Filter";
+import { categories } from "../../mocks/categories";
 
 const SearchBar = ({ updateSearch }) => {
   const [text, setText] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleChangeText = (newText) => {
     setText(newText);
     updateSearch(newText);
   };
 
-  const handlePress = () => {
-    console.log('pressed');
-  };
   return (
     <View style={styles.view}>
       <TextInput
         style={styles.input}
-        value={console.log('value')}
+        value={console.log()}
         onChangeText={handleChangeText}
         placeholder="Ingrese la película..."
       />
-    <TouchableOpacity style={styles.button} onPress={handlePress}> 
+    <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}> 
     <Image
         style={styles.image}
         source={{
@@ -29,6 +29,11 @@ const SearchBar = ({ updateSearch }) => {
         }}
       />
     </TouchableOpacity>
+    {/* <Filter 
+    visible={modalVisible}
+    onClose={() => setModalVisible(false)}
+    categories={categories}
+    /> */}
     </View>
   );
 };
