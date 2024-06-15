@@ -1,10 +1,10 @@
-const BASE_URL = 'http://192.168.0.8:8080/streamplus/user/';
+import { BASE_URL } from "../config/config";
 
 //BUSCAR EN IPCONFIG LA IPV4 Y REEMPLAZARLA POR localhost
 const createUser = async ({ userName, password, mail }) => {
 	try {
 		const request = { userName: userName, password: password, mail: mail }
-		const response = await fetch(`${BASE_URL}`, {
+		const response = await fetch(`${BASE_URL}/streamplus/user/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ const createUser = async ({ userName, password, mail }) => {
 
 const loginUser = async ({ userName, password }) => {
 	try {
-		const response = await fetch(`${BASE_URL}login`, {
+		const response = await fetch(`${BASE_URL}/streamplus/user/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

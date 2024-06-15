@@ -1,7 +1,7 @@
-const BASE_URL = "http://192.168.1.108:8080/streamplus/category/";
-//BUSCAR EN IPCONFIG LA IPV4 Y REEMPLAZARLA POR localhost
+import { BASE_URL } from "../config/config";
+
 const getCategories = async () => {
-  const response = await fetch(`${BASE_URL}`, {
+  const response = await fetch(`${BASE_URL}/streamplus/category/`, {
     method: "GET",
   })
     .then((response) => {

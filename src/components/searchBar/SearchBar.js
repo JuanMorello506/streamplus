@@ -17,7 +17,7 @@ const SearchBar = ({ updateSearch }) => {
     <View style={styles.view}>
       <TextInput
         style={styles.input}
-        value={console.log('value')}
+        value={console.log()}
         onChangeText={handleChangeText}
         placeholder="Ingrese la película..."
       />
@@ -29,11 +29,11 @@ const SearchBar = ({ updateSearch }) => {
         }}
       />
     </TouchableOpacity>
-    <Filter 
+    {/* <Filter 
     visible={modalVisible}
     onClose={() => setModalVisible(false)}
     categories={categories}
-    />
+    /> */}
     </View>
   );
 };

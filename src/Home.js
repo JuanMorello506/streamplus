@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import Carrousel from "./components/carrousel/Carrousel.js";
 import SearchBar from "./components/searchBar/SearchBar.js";
-import { categories } from "./mocks/categories.js";
+//import { categories } from "./mocks/categories.js";
 import Movie from "./components/movie/Movie.js";
 import { useNavigation } from "@react-navigation/native";
 import MovieContext from './services/AuthContext/index.js';
@@ -22,11 +22,26 @@ const { width } = Dimensions.get("window");
 
 const Home = ({ user }) => {
   const [searchText, setSearchText] = useState("");
-  const {movies} = useContext(MovieContext);
+  //const [categories, setCategories] = useState([]);
+  const {movies, categories} = useContext(MovieContext);
+  console.log("______________________________________")
+  console.log("Movies", movies)
+  console.log("Categories", categories)
+  console.log("______________________________________")
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchText.toLowerCase())
   );
-  
+
+  // useEffect(() => {
+    
+  //   categoryService.getCategories().then(categories => {
+  //     setCategories(categories)
+  //     console.log(categories)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
+  // }, []);
 
   const navigation = useNavigation();
   const numColumns = 3;
@@ -49,7 +64,7 @@ const Home = ({ user }) => {
       )
     ) : (
       <View style={styles.categoryView}>
-        <Text style={styles.category}>{item.category}</Text>
+        <Text style={styles.category}>{item.name}</Text>
         <Carrousel category={item} movies={movies} />
       </View>
     );

@@ -1,8 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { err } from 'react-native-svg';
+import { BASE_URL } from '../../config/config';
+import categoryService from '../category.js';
+
 const defaultAuthData = true;
-// URL base de tu API
-const BASE_URL = 'http://192.168.0.8:8080/streamplus/movie';
 
 // Crea un contexto con valor inicial nulo
 const MovieContext = createContext();
@@ -10,20 +11,20 @@ const MovieContext = createContext();
 // Componente proveedor del contexto
 export const MovieProvider = ({ children }) => {
   const [movies, setMovies] = useState();
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [authData, setAuthData] = useState(true);
 
     const fetchMovies = async () => {
         try {
-          const response = await fetch(BASE_URL,{
+          const response = await fetch(`${BASE_URL}/streamplus/movie/`,{
             method: 'GET'
           }); 
           if (!response.ok) {
             throw new Error('Error al obtener las películas');
           }
           const {message} = await response.json();
-          console.log(message)
           setMovies(message);
         } catch (error) {
           setError(error.message);
@@ -34,13 +35,22 @@ export const MovieProvider = ({ children }) => {
         }
       };
 
+      const fetchCategories = async () => {
+        categoryService.getCategories().then(categories => {
+          const {message} = categories;
+          setCategories(message)
+        })
+      }
+
   useEffect(() => {
     fetchMovies();
-    console.log("MVOIES:" + movies)
+    fetchCategories();
+    //console.log("MOVIES:", movies)
+    //console.log("CATEGORIES:", categories)
   }, []);
 
   return (
-    <MovieContext.Provider value={{ movies, loading, error, setAuthData, authData}}>
+    <MovieContext.Provider value={{ movies, categories, loading, error, setAuthData, authData}}>
       {children}
     </MovieContext.Provider>
   );
