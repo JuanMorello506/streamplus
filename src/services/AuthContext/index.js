@@ -11,7 +11,6 @@ const MovieContext = createContext();
 // Componente proveedor del contexto
 export const MovieProvider = ({ children }) => {
   const [movies, setMovies] = useState();
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [authData, setAuthData] = useState(true);
@@ -35,22 +34,14 @@ export const MovieProvider = ({ children }) => {
         }
       };
 
-      const fetchCategories = async () => {
-        categoryService.getCategories().then(categories => {
-          const {message} = categories;
-          setCategories(message)
-        })
-      }
 
   useEffect(() => {
     fetchMovies();
-    fetchCategories();
-    //console.log("MOVIES:", movies)
-    //console.log("CATEGORIES:", categories)
+    console.log("MOVIES:", movies)
   }, []);
 
   return (
-    <MovieContext.Provider value={{ movies, categories, loading, error, setAuthData, authData}}>
+    <MovieContext.Provider value={{ movies, loading, error, setAuthData, authData}}>
       {children}
     </MovieContext.Provider>
   );
