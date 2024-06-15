@@ -10,62 +10,67 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import Carrousel from "./components/carrousel/Carrousel.js";
 import SearchBar from "./components/searchBar/SearchBar.js";
-//import { categories } from "./mocks/categories.js";
 import Movie from "./components/movie/Movie.js";
 import { useNavigation } from "@react-navigation/native";
-import MovieContext from './services/AuthContext/index.js';
+import MovieContext from "./services/AuthContext/index.js";
+import { BASE_URL } from "./config/config.js";
 
 const { width } = Dimensions.get("window");
 
-const Home = ({ user }) => {
+const Home = () => {
   const [searchText, setSearchText] = useState("");
-  //const [categories, setCategories] = useState([]);
-  const {movies, categories} = useContext(MovieContext);
-  console.log("______________________________________")
-  console.log("Movies", movies)
-  console.log("Categories", categories)
-  console.log("______________________________________")
+  const [isLoading, setIsLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const { movies } = useContext(MovieContext);
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  // useEffect(() => {
-    
-  //   categoryService.getCategories().then(categories => {
-  //     setCategories(categories)
-  //     console.log(categories)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }, []);
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const getCategories = () => {
+    fetch(`${BASE_URL}/streamplus/category/`, {
+      method: "GET",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la petición");
+        }
+        return response.json();
+      })
+      .then((response) => {
+        const { message } = response;
+        setCategories(message);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", JSON.stringify(error));
+      });
+  };
 
   const navigation = useNavigation();
   const numColumns = 3;
   const itemWidth = width / numColumns - 6;
 
   const handlePressPerfil = () => {
-    navigation.navigate('profileScreen')
+    navigation.navigate("profileScreen");
   };
 
-  const renderItem = ({ item }) => {
-    return searchText ? ( //se está buscando texto?
-      filteredMovies.length > 0 ? ( //se encontraron resultados?
-        <View style={[styles.itemContainer, { width: itemWidth }]}>
-          <Movie movie={item} />
-        </View>
-      ) : (
-        <View>
-          <Text>No se encontraron coincidencias.</Text>
-        </View>
-      )
-    ) : (
+  const renderItemCategories = ({ item }) => {
+    const moviesCategories = movies.filter(
+      (movie) => movie.categoryId === item.id
+    );
+
+    return (
       <View style={styles.categoryView}>
         <Text style={styles.category}>{item.name}</Text>
-        <Carrousel category={item} movies={movies} />
+        <Carrousel category={item} movies={moviesCategories} />
       </View>
     );
   };
@@ -91,15 +96,22 @@ const Home = ({ user }) => {
       {/* <Text style={styles.title}>
         S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
       </Text> */}
-      <SearchBar updateSearch={setSearchText} />
-      {searchText ? (
-        <FlatList
-          data={filteredMovies}
-          renderItem={renderItem}
-          contentContainerStyle={styles.flatListContent}
-        />
+
+      {isLoading ? (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color="#AD92F1" />
+        </View>
       ) : (
-        <FlatList data={categories} renderItem={renderItem}/>
+        <>
+          <SearchBar updateSearch={setSearchText} />
+          {searchText ? (
+            <ScrollView contentContainerStyle={styles.filteredView}>
+              {filteredMovies.map(item => <Movie movie={item} key={item.id} />)}
+            </ScrollView>
+          ) : (
+            <FlatList data={categories} renderItem={renderItemCategories} />
+          )}
+        </>
       )}
     </SafeAreaView>
   );
@@ -156,6 +168,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     overflow: "hidden",
+  },
+  filteredView: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     color: "white",
@@ -238,12 +260,12 @@ const styles = StyleSheet.create({
   data: {
     flexDirection: "row",
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
   },
   welcome: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
-    fontFamily: 'Helvetica'
+    fontFamily: "Helvetica",
   },
 });
 
