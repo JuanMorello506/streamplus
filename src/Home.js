@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   image: {
+    margin: 10,
     width: "100%",
     height: "100%",
     borderRadius: 5,
@@ -263,6 +264,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   welcome: {
+    margin: 10,
+    marginTop:20,
     color: "white",
     fontSize: 20,
     fontFamily: "Helvetica",

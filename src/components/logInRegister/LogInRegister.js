@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from "./style.js";
 import MovieContext from '../../services/AuthContext/index.js';
-import apiUser from '../../services/user.js'
+import apiUser from '../../services/LoginRegister/loginRegisterService.js'
 
 
 export default function LogInRegister() {
@@ -44,6 +44,7 @@ export default function LogInRegister() {
 			if (esLogin) {
 				// console.log("Logging con:", { userName, password });
 				const response = await apiUser.loginUser({ userName, password });
+				console.log(response)
 				if (response.success) {
 					setAuthData(true);
 					navigation.navigate('homeScreen');
