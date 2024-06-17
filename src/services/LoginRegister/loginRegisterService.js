@@ -1,4 +1,4 @@
-import { BASE_URL } from "../config/config";
+import { BASE_URL } from "../../config/config";
 
 //BUSCAR EN IPCONFIG LA IPV4 Y REEMPLAZARLA POR localhost
 const createUser = async ({ userName, password, mail }) => {
@@ -29,16 +29,21 @@ const loginUser = async ({ userName, password }) => {
 			},
 			body: JSON.stringify({ userName, password }),
 		});
+		console.log(response);
 		if (response.ok) {
 			const data = await response.json();
 			return data;
+		} else {
+			// Añadido para manejar la respuesta de error y mostrar detalles
+			const errorData = await response.json();
+			console.error('Error details:', errorData);
+			throw new Error(errorData.message || 'Error logging in');
 		}
-		const errorData = await response.json();
-		throw new Error(errorData.message);
 	} catch (error) {
-		throw error;
+		console.error('Error caught in catch:', error);
 	}
 };
+
 
 export default {
 	createUser,

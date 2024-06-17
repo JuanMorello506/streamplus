@@ -1,47 +1,67 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { err } from 'react-native-svg';
 import { BASE_URL } from '../../config/config';
-import categoryService from '../category.js';
+import asyncStorageService from "../AsyncStorage/asyncStorageService.js";
 
-const defaultAuthData = true;
-
-// Crea un contexto con valor inicial nulo
 const MovieContext = createContext();
 
-// Componente proveedor del contexto
 export const MovieProvider = ({ children }) => {
-  const [movies, setMovies] = useState();
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [authData, setAuthData] = useState(true);
+  const [authData, setAuthData] = useState(null);
 
-    const fetchMovies = async () => {
-        try {
-          const response = await fetch(`${BASE_URL}/streamplus/movie/`,{
-            method: 'GET'
-          }); 
-          if (!response.ok) {
-            throw new Error('Error al obtener las películas');
-          }
-          const {message} = await response.json();
-          setMovies(message);
-        } catch (error) {
-          setError(error.message);
-          console.log(error)
-        } finally {
-          setLoading(false);
+  const handleAuthData = (dataToSet) => {
+    console.log("SETTING AUTHDATA WITH:", dataToSet);
+    setAuthData(dataToSet);
+  };
 
-        }
-      };
-
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/streamplus/movie/`, {
+        method: 'GET'
+      });
+      if (!response.ok) {
+        throw new Error('Error al obtener las películas');
+      }
+      const { message } = await response.json();
+      setMovies(message);
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchMovies();
-    console.log("MOVIES:", movies)
+    asyncStorageService.getData('authData')
+      .then(data => {
+        console.log("Found something???", data);
+        if (data) {
+          handleAuthData(data);
+        }
+      })
+      .catch(error => {
+        console.log("Error fetching authData from AsyncStorage:", error);
+      })
+      .finally(() => {
+        setLoading(false)
+        fetchMovies();
+      });
   }, []);
 
+  useEffect(() => {
+    if (authData) {
+      console.log('Usuario logueado');
+      asyncStorageService.storeData('authData', authData);
+    } else {
+      console.log('Usuario deslogueado');
+      asyncStorageService.clearAll();
+    }
+  }, [authData]);
+
   return (
-    <MovieContext.Provider value={{ movies, loading, error, setAuthData, authData}}>
+    <MovieContext.Provider value={{ movies, loading, error, handleAuthData, authData, setLoading }}>
       {children}
     </MovieContext.Provider>
   );

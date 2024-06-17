@@ -25,10 +25,16 @@ const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const { movies } = useContext(MovieContext);
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const { movies, handleAuthData } = useContext(MovieContext);
+
+ 
+
+  // Filter movies based on search text
+  const filteredMovies = Array.isArray(movies)
+    ? movies.filter((movie) =>
+        movie.title.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : [];
 
   useEffect(() => {
     getCategories();
@@ -62,10 +68,15 @@ const Home = () => {
     navigation.navigate("profileScreen");
   };
 
+  const handleLogOut = (data) =>{
+    handleAuthData(data)
+    navigation.navigate("LogInRegister")
+  };
+
   const renderItemCategories = ({ item }) => {
-    const moviesCategories = movies.filter(
-      (movie) => movie.categoryId === item.id
-    );
+    const moviesCategories = Array.isArray(movies)
+      ? movies.filter((movie) => movie.categoryId === item.id)
+      : [];
 
     return (
       <View style={styles.categoryView}>
@@ -77,11 +88,8 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.data}>
-        <TouchableOpacity
-          style={styles.perfilButton}
-          onPress={handlePressPerfil}
-        >
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.perfilButton} onPress={handlePressPerfil}>
           <Image
             style={styles.image}
             source={{
@@ -89,13 +97,13 @@ const Home = () => {
             }}
           />
         </TouchableOpacity>
-        <Text style={styles.welcome}>Bienvenido </Text>
+        <TouchableOpacity style={styles.logOutButton} onPress={() => handleLogOut(null)}>
+          <Text style={styles.logOut}>Log out</Text>
+        </TouchableOpacity>
+
       </View>
 
       <Text style={styles.title2}>STREAM+</Text>
-      {/* <Text style={styles.title}>
-        S<Text style={styles.t}>T</Text>REAM<Text style={styles.plus}>+</Text>
-      </Text> */}
 
       {isLoading ? (
         <View style={styles.loading}>
@@ -106,7 +114,9 @@ const Home = () => {
           <SearchBar updateSearch={setSearchText} />
           {searchText ? (
             <ScrollView contentContainerStyle={styles.filteredView}>
-              {filteredMovies.map(item => <Movie movie={item} key={item.id} />)}
+              {filteredMovies.map((item) => (
+                <Movie movie={item} key={item.id} />
+              ))}
             </ScrollView>
           ) : (
             <FlatList data={categories} renderItem={renderItemCategories} />
@@ -118,20 +128,38 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  title: {
-    color: "white",
-    fontSize: 50,
-    fontFamily: "sans-serif-medium",
-    marginBottom: 20,
+  container: {
+    flex: 1,
+    backgroundColor: "#14111C",
+    alignItems: "center",
+    position: "relative",
+    overflow: "hidden",
   },
-  flatListContent: {
+  header: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    borderRadius: 15,
-    justifyContent: "center",
-  },
-  itemContainer: {
     width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  welcome: {
+    color: "white",
+    fontSize: 20,
+    fontFamily: "Helvetica",
+    position:"absolute",
+    marginLeft:90,
+    marginTop:20,
+  },
+  logOutButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+  },
+  logOut: {
+    color: "white",
+    fontSize: 15,
+    fontFamily: "sans-serif-medium",
   },
   title2: {
     color: "white",
@@ -139,12 +167,6 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica",
     marginBottom: 20,
     fontWeight: "bold",
-  },
-  t: {
-    color: "#AD92F1",
-  },
-  plus: {
-    color: "#FCA82B",
   },
   category: {
     fontSize: 32,
@@ -155,98 +177,10 @@ const styles = StyleSheet.create({
   categoryView: {
     marginBottom: 20,
   },
-  movie: {
-    width: 60,
-    height: 100,
-    backgroundColor: "grey",
-    borderRadius: 5,
-    margin: 14,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#14111C",
-    alignItems: "center",
-    position: "relative",
-    overflow: "hidden",
-  },
-  filteredView: {
-    width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  loading: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    color: "white",
-    fontSize: 50,
-    fontFamily: "sans-serif-medium",
-    marginBottom: 20,
-  },
-  t: {
-    color: "#AD92F1",
-  },
-  plus: {
-    color: "#FCA82B",
-  },
-  form: {
-    backgroundColor: "#332B47",
-    borderRadius: 10,
-    padding: 20,
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-  },
-  formField: {
-    width: "90%",
-    marginBottom: 20,
-  },
-  label: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "sans-serif-light",
-    fontWeight: "400",
-    marginBottom: 10,
-  },
-  input: {
-    fontSize: 16,
-    fontFamily: "sans-serif-light",
-    borderRadius: 5,
-    padding: 10,
-    backgroundColor: "#D9D9D9",
-  },
-  button: {
-    backgroundColor: "#AD92F1",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 40,
-    width: 140,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "sans-serif-medium",
-  },
-  tyc: {
-    color: "black",
-    fontSize: 16,
-    fontFamily: "sans-serif-medium",
-
-    position: "absolute",
-    bottom: 15,
-    left: 20,
-  },
-  wave: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    width: "100%",
-  },
   image: {
+    margin: 2,
+    position:"absolute",
+    left:215,
     width: "100%",
     height: "100%",
     borderRadius: 5,
@@ -257,15 +191,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 10,
   },
-  data: {
-    flexDirection: "row",
-    width: "100%",
+  loading: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
-  welcome: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "Helvetica",
+  filteredView: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });
 
