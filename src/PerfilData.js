@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -9,11 +9,28 @@ import {
   Image,
 } from "react-native";
 import MovieContext from './services/AuthContext/index.js';
+import Carrousel from "./components/carrousel/Carrousel.js";
+import { getFavourites } from "./services/Favourites/favouritesService.js";
 
 const PerfilData = () => {
   const [editMode, setEditMode] = useState(false);
   const { authData } = useContext(MovieContext);
-  const { userName, mail } = authData.data;
+  const { id, userName, mail } = authData.data;
+  const [favourites, setFavourites] = useState([]);
+
+  useEffect(() => {
+    const fetchFavourites = async () => {
+      try {
+        const favouritesFetched = await getFavourites(id);
+        setFavourites(favouritesFetched);
+        console.log(favouritesFetched);
+      } catch (error) {
+        console.error("Error fetching favourites:", error);
+      }
+    };
+
+    fetchFavourites();
+  }, [id]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,7 +58,13 @@ const PerfilData = () => {
             />
           </View>
         </View>
+
+        <Text style={styles.labelFav}>My Favourites</Text>
+        <View>
+          <Carrousel movies={favourites} />
+        </View>
       </View>
+
       <View style={styles.buttons}>
         {!editMode ? (
           <TouchableOpacity style={styles.button} onPress={() => setEditMode(true)}>
@@ -99,6 +122,16 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     marginBottom: 10,
   },
+
+  labelFav: {
+    color: "white",
+    fontSize: 20,
+    fontFamily: "sans-serif-light",
+    fontWeight: "500",
+    marginBottom: 10,
+    marginTop:20,
+  },
+
   input: {
     fontSize: 16,
     fontFamily: "sans-serif-light",

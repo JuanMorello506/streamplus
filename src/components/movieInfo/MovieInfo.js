@@ -55,7 +55,7 @@ const MovieInfo = ({ visible, onClose, movie }) => {
               style={styles.playButton}
               onPress={() => {
                 onClose(); // Close the modal before navigating
-                navigation.navigate('MovieProfile', { img: movie.img, title: movie.title });
+                navigation.navigate('MovieProfile', { id: movie.id, img: movie.img, title: movie.title });
               }}
               underlayColor="#DDDDDD"
             >
