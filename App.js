@@ -7,6 +7,7 @@ import MovieContext, { MovieProvider } from "./src/services/AuthContext/index.js
 import Home from "./src/Home.js";
 import LogInRegister from "./src/components/logInRegister/LogInRegister.js";
 import LoadingScreen from "./src/components/loadingScreen/LoadingScreen.js";
+import MovieProfile from "./src/components/movieProfile/MovieProfile.js"
 
 
 const AppContent = () => {
@@ -48,6 +49,15 @@ const AppContent = () => {
         <Stack.Screen
           name="LogInRegister"
           component={LogInRegister}
+          options={{
+            title: "LogInRegister",
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="MovieProfile"
+          component={MovieProfile}
           options={{
             title: "LogInRegister",
             headerShown: false,
