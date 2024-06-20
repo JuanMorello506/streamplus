@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useState, useContext, useEffect } from "react";
+import { View, Text, Image, TouchableOpacity, TextInput, FlatList, SafeAreaView } from "react-native";
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
-import { addFavourites, removeFavourites } from "../../services/Favourites/favouritesService";
+import { addFavourites, removeFavourites, hasFavorite } from "../../services/Favourites/favouritesService";
+import { getCommentByMovieId, addComment, removeComment } from "../../services/Comments//commentsService";
 import MovieContext from "../../services/AuthContext/index";
 
 export default function MovieProfile({ route }) {
@@ -13,12 +14,15 @@ export default function MovieProfile({ route }) {
     const navigation = useNavigation();
     const { authData } = useContext(MovieContext);
     const userId = authData.data.id;
+    const [comment, setComment] = useState('');
+    const [comments, setComments] = useState([]);
 
     const handlePress = () => {
         console.log('pressed');
         navigation.navigate('VideoComponent');
     };
 
+    //si esta en favoritos se vera la estrella en amarillo si no en negro y dependiendo de eso se agregara o quitara de la lista de fav del usuario
     const toggleFavorite = () => {
         if (isFavorite) {
             removeFavourites(userId, id);
@@ -28,7 +32,59 @@ export default function MovieProfile({ route }) {
         setIsFavorite(!isFavorite);
     };
 
+    //maneja la creacion y seteo del comentario
+    const handleAddComment = async () => {
+        if (comment.trim() !== '') {
+            const newComment = {
+                userId,
+                movieId: id,
+                comment,
+                rating: 5,
+            };
+            try {
+                await addComment(newComment.comment, newComment.rating, newComment.userId, newComment.movieId);
+                setComments([...comments, newComment]);
+                setComment('');
+            } catch (error) {
+                console.error('Error adding comment:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        const checkIfFavorite = async () => {
+            try {
+                const { isFavourite } = await hasFavorite(userId, id);
+                setIsFavorite(isFavourite);
+                console.log("LA DATA DE HASFAVORITE ES: " + JSON.stringify(isFavourite));
+            } catch (error) {
+                console.error('Error checking favorite status:', error);
+            }
+        };
+
+        const fetchComments = async () => {
+            try {
+                const {message} = await getCommentByMovieId(id);
+                console.log("LA DATA DE COMMENTS ES: " + JSON.stringify(message));
+                setComments(message);
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+            }
+        };
+
+        checkIfFavorite();
+        fetchComments();
+    }, [id]);
+
+    const renderComment = ({ item }) => (
+        <View style={styles.commentItem}>
+            <Image source={{ uri: 'https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png' }} style={styles.userAvatar} />
+            <Text style={styles.commentText}>{item.comment}</Text>
+        </View>
+    );
+
     return (
+        
         <View style={styles.conatainer}>
             <Text style={styles.mainTitle}>{title}</Text>
             <View style={styles.details}>
@@ -67,7 +123,25 @@ export default function MovieProfile({ route }) {
                 <TouchableOpacity style={styles.watchNow} onPress={handlePress} />
 
                 <Text style={styles.text}>Comments</Text>
-                <View style={styles.commentsContainer}></View>
+                <View style={styles.commentsContainer}>
+                    <View style={styles.commentInputContainer}>
+                        <Image source={{ uri: 'https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png' }} style={styles.userAvatar} />
+                        <TextInput
+                            style={styles.commentInput}
+                            placeholder="Leave a comment"
+                            value={comment}
+                            onChangeText={setComment}
+                        />
+                        <TouchableOpacity onPress={handleAddComment} style={styles.commentButton}>
+                            <Text style={styles.commentButtonText}>Post</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        data={comments}
+                        renderItem={renderComment}
+                        style={styles.commentList}
+                    />
+                </View>
             </View>
         </View>
     );

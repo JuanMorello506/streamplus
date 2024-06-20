@@ -41,3 +41,17 @@ export const removeFavourites = async (userId, movieId) => {
       });
     return response;
 };
+
+export const hasFavorite = async (id,movieId) => {
+  const response = await fetch(`${BASE_URL}/streamplus/favourites/${id}/${movieId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      console.log("error", JSON.stringify(error));
+      return error;
+    });
+  return response;
+};
