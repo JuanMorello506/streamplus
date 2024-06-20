@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
-import { addFavourites, removeFavourites } from "../../services/Favourites/favouritesService";
+import { addFavourites, removeFavourites, hasFavorite } from "../../services/Favourites/favouritesService";
 import MovieContext from "../../services/AuthContext/index";
 
 export default function MovieProfile({ route }) {
@@ -27,6 +27,20 @@ export default function MovieProfile({ route }) {
         }
         setIsFavorite(!isFavorite);
     };
+
+    useEffect(() => {
+        const checkIfFavorite = async () => {
+            try {
+                const {isFavourite} = await hasFavorite(userId, id);
+                setIsFavorite(isFavourite);
+                console.log("LA DATA DE HASFAVORITE ES: " + JSON.stringify(isFavourite));
+            } catch (error) {
+                console.error('Error checking favorite status:', error);
+            }
+        };
+
+        checkIfFavorite();
+    }, [id]);
 
     return (
         <View style={styles.conatainer}>
