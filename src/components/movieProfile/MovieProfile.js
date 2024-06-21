@@ -4,7 +4,9 @@ import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { addFavourites, removeFavourites, hasFavorite } from "../../services/Favourites/favouritesService";
 import { getCommentByMovieId, addComment, removeComment } from "../../services/Comments//commentsService";
+import { getUserById } from "../../services/User/userService";
 import MovieContext from "../../services/AuthContext/index";
+import Comments from "../comments/Comments";
 
 export default function MovieProfile({ route }) {
     const { id, img, title } = route.params;
@@ -76,12 +78,7 @@ export default function MovieProfile({ route }) {
         fetchComments();
     }, [id]);
 
-    const renderComment = ({ item }) => (
-        <View style={styles.commentItem}>
-            <Image source={{ uri: 'https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png' }} style={styles.userAvatar} />
-            <Text style={styles.commentText}>{item.comment}</Text>
-        </View>
-    );
+
 
     return (
         
@@ -138,7 +135,9 @@ export default function MovieProfile({ route }) {
                     </View>
                     <FlatList
                         data={comments}
-                        renderItem={renderComment}
+                        renderItem={({ item }) =>
+                            <Comments  item={item} />
+                          }
                         style={styles.commentList}
                     />
                 </View>
