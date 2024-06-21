@@ -123,13 +123,5 @@ commentList: {
     flex: 1,
     marginLeft:15,
 },
-commentItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-},
-commentText: {
-    marginLeft: 10,
-    color: "white"
-},
+
 });
