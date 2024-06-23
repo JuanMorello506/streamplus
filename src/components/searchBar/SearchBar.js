@@ -21,14 +21,14 @@ const SearchBar = ({ updateSearch }) => {
         onChangeText={handleChangeText}
         placeholder="Ingrese la película..."
       />
-    <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}> 
+    {/* <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}> 
     <Image
         style={styles.image}
         source={{
           uri: 'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/filter-512.png',
         }}
       />
-    </TouchableOpacity>
+    </TouchableOpacity> */}
     {/* <Filter 
     visible={modalVisible}
     onClose={() => setModalVisible(false)}

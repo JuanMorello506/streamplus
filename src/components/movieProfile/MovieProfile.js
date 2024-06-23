@@ -81,8 +81,7 @@ export default function MovieProfile({ route }) {
 
 
     return (
-        
-        <View style={styles.conatainer}>
+        <SafeAreaView style={styles.conatainer}>
             <Text style={styles.mainTitle}>{title}</Text>
             <View style={styles.details}>
                 <View style={styles.detail}>
@@ -142,6 +141,6 @@ export default function MovieProfile({ route }) {
                     />
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
