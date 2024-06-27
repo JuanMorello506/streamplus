@@ -45,7 +45,7 @@ export const MovieProvider = ({ children }) => {
         console.log("Error fetching authData from AsyncStorage:", error);
       })
       .finally(() => {
-        setLoading(false)
+        setLoading(false);
         fetchMovies();
       });
   }, []);

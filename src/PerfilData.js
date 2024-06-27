@@ -7,15 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import MovieContext from './services/AuthContext/index.js';
 import Carrousel from "./components/carrousel/Carrousel.js";
 import { getFavourites } from "./services/Favourites/favouritesService.js";
+import { updateUser } from './services/User/userService.js';
 
 const PerfilData = () => {
   const [editMode, setEditMode] = useState(false);
-  const { authData } = useContext(MovieContext);
+  const { authData, handleAuthData } = useContext(MovieContext);
   const { id, userName, mail } = authData.data;
+  const [newUserName, setNewUserName] = useState(userName);
+  const [newMail, setNewMail] = useState(mail);
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
@@ -25,12 +29,43 @@ const PerfilData = () => {
         setFavourites(favouritesFetched);
         console.log(favouritesFetched);
       } catch (error) {
-        console.error("Error fetching favourites:", error);
+        console.error("Error al obtener favoritos:", error);
       }
     };
 
     fetchFavourites();
   }, [id]);
+
+  const handleSave = async () => {
+    if (!newUserName.trim() || !newMail.trim()) {
+      Alert.alert("Error", "Por favor, completa todos los campos.");
+      return;
+    }
+
+    const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!mailRegex.test(newMail)) {
+      Alert.alert("Error", "Por favor, introduce un correo electrónico válido.");
+      return;
+    }
+
+    try {
+      console.log("Datos a enviar al servidor:", { userId: id, userName: newUserName, mail: newMail });
+      const response = await updateUser(id, newUserName, newMail);
+      console.log("Respuesta del servidor:", response);
+
+      if (response.success) {
+        const updatedAuthData = { ...authData, data: { ...authData.data, userName: newUserName, mail: newMail } };
+        handleAuthData(updatedAuthData);
+        setEditMode(false);
+        Alert.alert("Éxito", "Perfil actualizado correctamente.");
+      } else {
+        Alert.alert("Error", "No se pudo actualizar el perfil.");
+      }
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
+      Alert.alert("Error", "Hubo un problema al actualizar el perfil.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,19 +82,21 @@ const PerfilData = () => {
             <Text style={styles.label}>Nombre de usuario</Text>
             <TextInput
               style={styles.input}
-              value={userName}
+              value={newUserName}
+              onChangeText={setNewUserName}
               editable={editMode}
             />
             <Text style={styles.label}>Correo electrónico</Text>
             <TextInput
               style={styles.input}
-              value={mail}
+              value={newMail}
+              onChangeText={setNewMail}
               editable={editMode}
             />
           </View>
         </View>
 
-        <Text style={styles.labelFav}>My Favourites</Text>
+        <Text style={styles.labelFav}>Mis Favoritos</Text>
         <View>
           <Carrousel movies={favourites} />
         </View>
@@ -71,7 +108,7 @@ const PerfilData = () => {
             <Text style={styles.buttonText}>Editar</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.button} onPress={() => setEditMode(false)}>
+          <TouchableOpacity style={styles.button} onPress={handleSave}>
             <Text style={styles.buttonText}>Aceptar</Text>
           </TouchableOpacity>
         )}
@@ -107,10 +144,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 120, 
-    height: 120, 
-    borderRadius: 60, 
-    marginRight: 20, 
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginRight: 20,
   },
   infoContainer: {
     flex: 1,
@@ -122,16 +159,14 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     marginBottom: 10,
   },
-
   labelFav: {
     color: "white",
     fontSize: 20,
     fontFamily: "sans-serif-light",
     fontWeight: "500",
     marginBottom: 10,
-    marginTop:20,
+    marginTop: 20,
   },
-
   input: {
     fontSize: 16,
     fontFamily: "sans-serif-light",
