@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    backButtonContainer: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+    },
     controls: {
         position: 'absolute',
         flexDirection: 'row',
@@ -26,7 +31,7 @@ export const styles = StyleSheet.create({
         marginHorizontal: 10,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)', //color blanquito medio transparente
+        backgroundColor: 'rgba(255, 255, 255, 0.7)', // color blanquito medio transparente
         borderRadius: 5,
     },
     controlText: {
