@@ -18,6 +18,7 @@ import Movie from "./components/movie/Movie.js";
 import { useNavigation } from "@react-navigation/native";
 import MovieContext from "./services/AuthContext/index.js";
 import { BASE_URL } from "./config/config.js";
+import { getCategories } from "./services/Category/category.js";
 
 const { width } = Dimensions.get("window");
 
@@ -27,7 +28,6 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const { movies, handleAuthData } = useContext(MovieContext);
 
-  // Filter movies based on search text
   const filteredMovies = Array.isArray(movies)
     ? movies.filter((movie) =>
         movie.title.toLowerCase().includes(searchText.toLowerCase())
@@ -35,28 +35,10 @@ const Home = () => {
     : [];
 
   useEffect(() => {
-    getCategories();
+    getCategories(setCategories, setIsLoading);
   }, []);
 
-  const getCategories = () => {
-    fetch(`${BASE_URL}/streamplus/category/`, {
-      method: "GET",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en la petición");
-        }
-        return response.json();
-      })
-      .then((response) => {
-        const { message } = response;
-        setCategories(message);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log("error", JSON.stringify(error));
-      });
-  };
+
 
   const navigation = useNavigation();
   const numColumns = 3;

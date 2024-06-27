@@ -8,7 +8,7 @@ import Home from "./src/Home.js";
 import LogInRegister from "./src/components/logInRegister/LogInRegister.js";
 import LoadingScreen from "./src/components/loadingScreen/LoadingScreen.js";
 import MovieProfile from "./src/components/movieProfile/MovieProfile.js"
-import PerfilData from "./src/PerfilData.js";
+import PerfilData from "./src/components/perfilData/PerfilData.js";
 import VideoComponent from "./src/components/video/VideoComponent.js"
 
 

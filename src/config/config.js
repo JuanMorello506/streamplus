@@ -1,4 +1,4 @@
-const BASE_URL="http://192.168.1.14:8080";
+const BASE_URL="https://2add-181-95-228-67.ngrok-free.app";
 
 export {
     BASE_URL,
