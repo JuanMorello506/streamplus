@@ -27,8 +27,6 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const { movies, handleAuthData } = useContext(MovieContext);
 
- 
-
   // Filter movies based on search text
   const filteredMovies = Array.isArray(movies)
     ? movies.filter((movie) =>
@@ -100,7 +98,6 @@ const Home = () => {
         <TouchableOpacity style={styles.logOutButton} onPress={() => handleLogOut(null)}>
           <Text style={styles.logOut}>Log out</Text>
         </TouchableOpacity>
-
       </View>
 
       <Text style={styles.title2}>STREAM+</Text>
@@ -143,18 +140,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 20,
   },
-  welcome: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "Helvetica",
-    position:"absolute",
-    marginLeft:90,
-    marginTop:20,
-  },
   logOutButton: {
     position: "absolute",
     top: 20,
     right: 20,
+    alignSelf: 'flex-end',
+    marginTop: 20,
   },
   logOut: {
     color: "white",
@@ -179,17 +170,20 @@ const styles = StyleSheet.create({
   },
   image: {
     margin: 2,
-    position:"absolute",
-    left:215,
-    width: "100%",
-    height: "100%",
-    borderRadius: 5,
+    position: "absolute",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignSelf: 'flex-start',
+    marginTop: 20,
   },
   perfilButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
     margin: 10,
+    alignSelf: 'flex-start',
+    marginTop: 20,
   },
   loading: {
     flex: 1,

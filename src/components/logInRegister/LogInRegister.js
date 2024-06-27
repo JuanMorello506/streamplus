@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Keyboard, useWindowDimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Keyboard, useWindowDimensions, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from "./style";
@@ -11,7 +11,6 @@ export default function LogInRegister() {
   const [password, setPassword] = useState('');
   const [mail, setMail] = useState('');
   const [esLogin, setEsLogin] = useState(true);
-  const [message, setMessage] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const { height, width } = useWindowDimensions();
   const navigation = useNavigation();
@@ -31,33 +30,57 @@ export default function LogInRegister() {
     };
   }, []);
 
+  // Validaciones para crear usuario
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 6;
+  };
+
+  const validateUsername = (username) => {
+    return username.length >= 3;
+  };
+
   const handleSubmit = async () => {
-    if (!userName || !password) {
-      setMessage("completar campos");
+    if (!validateUsername(userName)) {
+      Alert.alert("Error", "El nombre de usuario debe tener al menos 3 caracteres");
       return;
     }
+
+    if (!validatePassword(password)) {
+      Alert.alert("Error", "La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    if (!esLogin && !validateEmail(mail)) {
+      Alert.alert("Error", "Ingrese un correo electrónico válido");
+      return;
+    }
+
     try {
       if (esLogin) {
         const response = await apiUser.loginUser({ userName, password });
         if (response.success) {
-			console.log("RESPONSE DE LOGIN: " + response)
-			handleAuthData(response);
-			
+          console.log("RESPONSE DE LOGIN: " + response);
+          handleAuthData(response);
           navigation.navigate('homeScreen');
         } else {
-          setMessage(response.message);
+          Alert.alert("Error", "Los datos ingresados son incorrectos");
         }
       } else {
         const response = await apiUser.createUser({ userName, password, mail });
         if (response.success) {
-          setMessage('Usuario creado con éxito');
+          console.log("Usuario creado con éxito");
           setEsLogin(true);
         } else {
-          setMessage(response.message);
+          Alert.alert("Error", response.message);
         }
       }
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      Alert.alert("Error", `Error: ${error.message}`);
     }
   };
 
@@ -83,6 +106,7 @@ export default function LogInRegister() {
               value={mail}
               onChangeText={setMail}
               placeholder='Ingrese su correo...'
+              keyboardType="email-address"
             />
           </View>
         )}
