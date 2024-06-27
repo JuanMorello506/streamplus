@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
       fontFamily: "Helvetica",
       marginBottom: 20,
       fontWeight: "bold",
+      marginTop: 4
     },
     perfil: {
       flex: 1,

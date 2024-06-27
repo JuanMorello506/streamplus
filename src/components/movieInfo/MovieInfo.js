@@ -59,7 +59,7 @@ const MovieInfo = ({ visible, onClose, movie }) => {
               }}
               underlayColor="#DDDDDD"
             >
-              <Text style={{ fontSize: 15, color: "white" }}>Play</Text>
+              <Text style={{ fontSize: 15, color: "white" }}>Detalle</Text>
             </TouchableHighlight>
 
             <View style={styles.info}>

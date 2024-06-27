@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     borderTopColor: '#FFFFFF',
     borderStyle: 'solid',
-    borderColor:"white",
+    borderColor:"white"
 },
 commentInputContainer: {
     flexDirection: 'row',
